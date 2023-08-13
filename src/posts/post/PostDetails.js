@@ -12,6 +12,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { updateDoc, doc } from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "../../store";
+import readingTime from "../readingTime";
 
 const PostDetails = () => {
   const params = useParams();
@@ -59,9 +60,10 @@ const PostDetails = () => {
       } else return item;
     });
     setPost(newData[0]);
-    console.log(newData[0]);
+    //console.log(newData[0]);
     setLoading(false);
     const postDetails = newData[0];
+    setReadTime(readingTime(postDetails.text));
     if (postDetails.liked_by.includes(userId)) {
       setLike(true);
     }

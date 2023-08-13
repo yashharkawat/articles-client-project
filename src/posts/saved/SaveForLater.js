@@ -24,6 +24,7 @@ const SaveForLater = (props) => {
   }, [props.postId]);
   const saveHandler = async (e) => {
     //console.log(userId);
+    setSave(true);
     const user = doc(db, "users", userId);
     //console.log(user.doc.data());
     let newSaved=[];
@@ -41,13 +42,14 @@ const SaveForLater = (props) => {
     const newUser = { ...currentUser, saved: newSaved};
     //console.log(newSaved);
     await updateDoc(user, newUser);
-    setSave(true);
+    
     
     setRevisionHistory(revisionHistory,dispatch,currUser,props.title,"saved");
     //save post here
   };
   const unsaveHandler = async (e) => {
     //console.log(userId,currentUser);
+    
     const user = doc(db, "users", userId);
     const newSaved = savedPostId.filter((savedId) => savedId !== props.postId);
     const newUser = { ...currentUser, saved: newSaved };
@@ -55,9 +57,9 @@ const SaveForLater = (props) => {
     dispatch(actions.changeCurrentUserSaved(save));
     console.log(newSaved);
     await updateDoc(user, newUser);
-    setSave(false);
-    setRevisionHistory(revisionHistory,dispatch,currUser,props.title,"removed from saved posts");
     
+    setRevisionHistory(revisionHistory,dispatch,currUser,props.title,"removed from saved posts");
+    setSave(false);
     //save post here
   };
   return (

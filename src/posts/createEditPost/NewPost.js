@@ -8,7 +8,19 @@ import { db } from '../../config/firebase'
 import { useSelector,useDispatch } from 'react-redux';
 import { actions } from '../../store';
 import { setRevisionHistory } from '../../actions/setRevisionHistory';
-
+async function checkUrlExists(url) {
+  try {
+    if(url.includes("http://")) return true;
+    const response = await fetch(url);
+    const data=response.json();
+    //console.log(data);
+    if(data.url.includes('http://localhost')) return false;
+    return true;  // Returns true for 2xx status codes
+  } catch (error) {
+    
+    return false;  // Catch network errors or failed requests
+  }
+}
 const NewPost = (props) => {
   //const [loading,setLoading]=useState(true);
   const username = useSelector(state => state.name);
@@ -54,11 +66,22 @@ const NewPost = (props) => {
   if (loading) return <div>Loading</div>;
   return (
     <div className='container'>
-      <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={(values, { resetForm }) => {
-
+      <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={async (values, { resetForm }) => {
+        let newValues=values;
+        try{
+          const exists=await checkUrlExists(values.image);
+          console.log(values.image);
+          if(!exists){
+            newValues={...values,image:'https://notion-blog-wildcatco.vercel.app/_next/image?url=https%3A%2F%2Fwww.notion.so%2Fimage%2Fhttps%253A%252F%252Fs3-us-west-2.amazonaws.com%252Fsecure.notion-static.com%252F458d78d3-2b75-4ac1-a9b6-8373ef3110a5%252Fmarek-piwnicki-GV2YhjYpQZM-unsplash.jpg%3Ftable%3Dblock%26id%3D3caebeb5-9453-44ed-902a-7458f9bb52c7%26cache%3Dv2&w=1920&q=75'};
+          }
+          console.log("exists",exists);
+        }
+        catch (err){
+          console.log(err);
+        }
         if (props.id === undefined) {
           try {
-            addPost(values);
+            addPost(newValues);
 
           }
           catch (err) { console.log(err) };
@@ -66,7 +89,8 @@ const NewPost = (props) => {
         }
         else {
           try {
-            updatePost(props.id, values);
+            console.log(newValues);
+            updatePost(props.id, newValues);
           }
           catch (err) { console.log(err) };
         }

@@ -42,7 +42,7 @@ const SavedPosts = () => {
       <div className="post-list">
         {savedPosts.length===0&&<h3>You do not have any saved posts</h3>}
       {savedPosts.map((post) => {
-        return <Post deletePost={handleDeletePost} post={post} />;
+        return <Post key={post.id} deletePost={handleDeletePost} post={post} />;
       })}
       </div>
     </div>

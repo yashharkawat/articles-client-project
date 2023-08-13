@@ -67,11 +67,13 @@ const Post = (props, { deletePost }) => {
       console.log(err);
     }
     try {
+      
       if (doReset(currUser.lastResetTime)) {
         const user = doc(db, "users", currUser.id);
         const num = 0;
         dispatch(actions.changeCurrentUserViews(num));
         const newUser = { ...currUser, numOfViewsToday: num };
+        
         await updateDoc(user, newUser);
       }
       const user = doc(db, "users", currUser.id);
@@ -155,10 +157,11 @@ const Post = (props, { deletePost }) => {
   return (
     <div className="post" id={post.id}>
       {post.image !== undefined && (
-        <Link to={`/post-details/${post.id}`}>
+        <div onClick={postOnClick}>
           <img  className="post-image margin-bottom pointer" src={post.image} alt="Featured" />
-        </Link>
+        </div>
       )}
+      <div className="post-description">
       <div className="author-date" >
         <Link to={`/authors/${post.author}`} className="author">
           <p className="post-author">Author: {post.author}</p>
@@ -244,6 +247,7 @@ const Post = (props, { deletePost }) => {
       </div>
       <div >
         Viewed by {post.view === undefined ? 0 : post.view} people
+      </div>
       </div>
     </div>
   );

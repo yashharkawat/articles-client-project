@@ -25,7 +25,7 @@ const MyPost = () => {
       } else return item;
     });
     setPosts(newData);
-    console.log(newData);
+    //console.log(newData);
   };
   useEffect(() => {
     try {
@@ -44,8 +44,8 @@ const MyPost = () => {
     <div>
       <h2 style={{ textAlign: "center" }}>My posts</h2>
       <div className="post-list">
-        {posts.map((post, index) => (
-          <Post key={index} post={post} deletePost={handleDelete} />
+        {posts.map((post) => (
+          <Post key={post.id} post={post} deletePost={handleDelete} />
         ))}
       </div>
       {posts.length === 0 && (

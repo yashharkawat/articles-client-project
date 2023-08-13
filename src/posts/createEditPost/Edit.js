@@ -31,7 +31,7 @@ const Edit = () => {
   }, [params.id])
 
   if(loading){
-    return <>hi</>
+    return <>Loading</>
 
   }
   return (

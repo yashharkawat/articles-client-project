@@ -9,7 +9,7 @@ export const Filter = (props) => {
     props.sendFilter(vals);
   };
   return (
-    <div className="align-top">
+    <div className="align-top margin-top-neg">
       <Formik
         initialValues={initialValues}
         onSubmit={(values, { resetForm }) => {

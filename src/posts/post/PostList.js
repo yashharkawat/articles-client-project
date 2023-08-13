@@ -58,11 +58,11 @@ const PostList = (props) => {
       });
       filterPosts = filterPosts.filter((post) => {
         if (props.filter.likes === "") return true;
-        return props.filter.likes <= post.likes;
+        return props.filter.likes <= post.liked_by.length;
       });
       filterPosts = filterPosts.filter((post) => {
         if (props.filter.comments === "") return true;
-        return props.filter.comments <= post.comments;
+        return props.filter.comments <= post.comments.length;
       });
       //console.log("search", searchPosts);
       setSearchPosts(filterPosts);
