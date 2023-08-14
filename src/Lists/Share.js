@@ -78,7 +78,7 @@ const Share = ({ userList, list, lists, setShare }) => {
           </li>
         ))}
       </ul>
-      <button onClick={() => setShare(false)}>Share</button>
+      <button className="list-button" onClick={() => setShare(false)}>Share</button>
     </div>
   );
 };

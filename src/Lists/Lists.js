@@ -61,12 +61,12 @@ const Lists = () => {
 
       <h2>Create New List</h2>
       <input
-        type="text"
+        type="text" className="list-input"
         placeholder="Enter list title"
         value={newListTitle}
         onChange={(e) => setNewListTitle(e.target.value)}
       />
-      <button onClick={handleAddList}>Create List</button>
+      <button className="list-button" onClick={handleAddList}>Create List</button>
 
       <h2>Lists</h2>
       <ul>
