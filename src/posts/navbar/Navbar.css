@@ -131,6 +131,7 @@
   text-decoration: none;
   color: #64748b;
   margin-right: 40px;
+  cursor: pointer;
 }
 .pages:hover ,.pages.active{
   color: #ffffff;

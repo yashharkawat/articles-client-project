@@ -24,7 +24,7 @@ export const Filter = (props) => {
               <h2 style={{ textAlign: "center", color: "white" }}>
                 Add Filters
               </h2>
-              <label>Filter by Author: </label>
+              <label className="filter-text">Filter by Author:</label>
               <input
                 type="text"
                 name="author"
@@ -35,7 +35,7 @@ export const Filter = (props) => {
               />
             </div>
             <div>
-              <label>Filter by Date: </label>
+              <label className="filter-text">Filter by Date: </label>
               <input
                 type="date"
                 name="date"
@@ -45,7 +45,7 @@ export const Filter = (props) => {
               />
             </div>
             <div>
-              <label>Filter by Likes: </label>
+              <label className="filter-text">Filter by Likes: </label>
               <input
                 type="number"
                 name="likes"
@@ -56,7 +56,7 @@ export const Filter = (props) => {
               />
             </div>
             <div>
-              <label>Filter by Comments: </label>
+              <label className="filter-text">Filter by Comments: </label>
               <input
                 type="number"
                 name="comments"

@@ -2,15 +2,16 @@ import PostList from "../post/PostList";
 import NavBar from "../navbar/NavBar";
 import { useState } from "react";
 import "./Display.css";
-
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Filter } from "../Filter";
 import TopicListPage from "../Topics/TopicList";
+import BestPosts from "../recommendations/BestPosts";
 
 const Display = () => {
   // const user=useSelector(state=>state);
   // console.log("user",user);
   const [search, setSearch] = useState("");
+  const [allPosts,setAllPosts]=useState(true);
   const [filter, setFilter] = useState({
     author: "",
     date: "",
@@ -20,7 +21,7 @@ const Display = () => {
   const [topics, setTopics] = useState(false);
   const filterHandler = (filterValues) => {
     setFilter(filterValues);
-    console.log(filterValues);
+    //console.log(filterValues);
   };
   const id = useSelector((state) => state.id);
   console.log(id);
@@ -41,11 +42,19 @@ const Display = () => {
           type="text"
           value={search}
         ></input>
-        {/* <Filter sendFilter={filterHandler} /> */}
       </div>
       <TopicListPage active={topicHandler} sendFilter={filterHandler} />
+      {!topics&&<div className="flex center">
+        <span className={`pages ${allPosts&&'active'}`} onClick={()=>setAllPosts(true)}>
+        All Posts
+        </span>
+        <span to='/best-posts' className={`pages ${!allPosts&&'active'}`} onClick={()=>setAllPosts(false)}>
+        Top Posts
+        </span>
+        </div>}
+      {!topics &&allPosts && <PostList searchText={search} filter={filter} />}
+      {!topics &&!allPosts && <BestPosts />}
 
-      {!topics && <PostList searchText={search} filter={filter} />}
     </div>
   );
 };

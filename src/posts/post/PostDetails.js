@@ -294,7 +294,7 @@ const PostDetails = () => {
         </div>
       </div>
       {similar && <SimilarAuthor author={post.author} id={post.id} />}
-      {!similar && <RecommendedPosts />}
+      {!similar && <RecommendedPosts topic={post.topic} id={post.id}/>}
     </>
   );
 };

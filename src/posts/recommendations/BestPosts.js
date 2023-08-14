@@ -51,7 +51,6 @@ const BestPosts = () => {
   };
   return (
     <div>
-      <h2 style={{ textAlign: "center" }}>Recommended Posts</h2>
       <div className="post-list">
         {bestPosts.map((post) => {
           return <Post post={post} deletePost={handleDeletePost} />;
