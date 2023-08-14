@@ -30,6 +30,9 @@ const NavBar = (props) => {
         <Link to='/saved-posts' className="pages">
         Saved Posts
         </Link>
+        <Link to='/drafts' className="pages">
+        Drafts
+        </Link>
         <Link to='/my-posts' className="pages">
         My Posts
         </Link>
@@ -38,6 +41,9 @@ const NavBar = (props) => {
         </Link>
         <Link to='/pay' className="pages">
         Buy Posts
+        </Link>
+        <Link to='/lists' className="pages">
+        Lists
         </Link>
         </div>
         <div className="navbar-right">

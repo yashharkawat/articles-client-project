@@ -2,12 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { Link } from 'react-router-dom';
-import './NewPost.css'
 import { collection, addDoc, updateDoc, doc } from 'firebase/firestore';
-import { db } from '../../config/firebase'
+import { db } from '../config/firebase'
 import { useSelector,useDispatch } from 'react-redux';
-import { actions } from '../../store';
-import { setRevisionHistory } from '../../actions/setRevisionHistory';
+import { actions } from '../store';
 async function checkUrlExists(url) {
   try {
     if(url.includes("http://")) return true;
@@ -21,27 +19,16 @@ async function checkUrlExists(url) {
     return false;  // Catch network errors or failed requests
   }
 }
-const NewPost = (props) => {
+const AddPost = (props) => {
   //const [loading,setLoading]=useState(true);
   const username = useSelector(state => state.name);
-  const [initialValues, setInitialValues] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [initialValues, setInitialValues] = useState({title:'',text:'',image:'',topic:''});
+  
   const revisionHistory=useSelector(state=>state.revisionHistory);
-  const user=useSelector(state=>state);
   const dispatch=useDispatch();
   const currUser=useSelector(state=>state);
-  const drafts=useSelector(state=>state.drafts);
 
-  useEffect(() => {
-    setLoading(true);
-    setInitialValues({
-      title: props.initialValues.title,
-      topic: props.initialValues.topic,
-      image: props.initialValues.image,
-      text: props.initialValues.text,
-    });
-    setLoading(false);
-  }, [props.initialValues])
+  
   //console.log("hi",props.id,props.initialValues);
   const validationSchema = yup.object({
     title: yup.string().required('Title is required'),
@@ -51,34 +38,30 @@ const NewPost = (props) => {
   });
 
   const addPost = async (values) => {
+    console.log(values);
     const date = new Date();
-    const articlesCollection = collection(db, "articles");
-    await addDoc(articlesCollection, { ...values, created_at: date, author: username, view: 0 ,liked_by:[],comments:[]});
-    setRevisionHistory(revisionHistory,dispatch,currUser,values.title,"added");
-  }
-  const updatePost = async (id, values) => {
+    const lists=currUser.lists;
+    const newLists=lists.map(ll=>{
 
-    const newPost={ ...props.initialValues,...values, author: username};
-    //console.log(newPost);
-    const article = doc(db, "articles", id);
-    await updateDoc(article, newPost);
-    setRevisionHistory(revisionHistory,dispatch,currUser,props.initialValues.title,"updated");
-  }
-  const handleDraft=async (values)=>{
-    //console.log(values);
-    let newValues={...values};
-    const exists=await checkUrlExists(values.image);
-    if(!exists){
-      newValues.image='https://notion-blog-wildcatco.vercel.app/_next/image?url=https%3A%2F%2Fwww.notion.so%2Fimage%2Fhttps%253A%252F%252Fs3-us-west-2.amazonaws.com%252Fsecure.notion-static.com%252F458d78d3-2b75-4ac1-a9b6-8373ef3110a5%252Fmarek-piwnicki-GV2YhjYpQZM-unsplash.jpg%3Ftable%3Dblock%26id%3D3caebeb5-9453-44ed-902a-7458f9bb52c7%26cache%3Dv2&w=1920&q=75'
-    }
-    const newDrafts=[newValues,...drafts];
-    //console.log(newDrafts);
-    dispatch(actions.changeCurrentUserDrafts(newDrafts));
+        if(ll.id==props.listId){
+            const id=new Date();
+            const newPosts=[ ...ll.posts, {...values,id:id,created_at: date, author: username, view: 0 ,liked_by:[],comments:[]}]
+            return {...ll,posts:newPosts};
+        }
+        return ll;
+    });
+    console.log("in addpost",newLists);
+    dispatch(actions.changeCurrentUserLists(newLists));
+
     const userRef=doc(db,"users",currUser.id);
-    const newUser={...currUser,drafts:newDrafts};
+    const newUser={...currUser,lists:newLists};
     await updateDoc(userRef,newUser);
-  }
-  if (loading) return <div>Loading</div>;
+
+//     const articlesCollection = collection(db, "articles");
+//     await addDoc(articlesCollection, { ...values, created_at: date, author: username, view: 0 ,liked_by:[],comments:[]});
+//     setRevisionHistory(revisionHistory,dispatch,currUser,values.title,"added");
+   }
+  
   return (
     <div className='container'>
       <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={async (values, { resetForm }) => {
@@ -94,21 +77,13 @@ const NewPost = (props) => {
         catch (err){
           console.log(err);
         }
-        if (props.id === undefined) {
-          try {
+        try {
             addPost(newValues);
-
+            resetForm();
+            props.add(false);
           }
           catch (err) { console.log(err) };
-          resetForm();
-        }
-        else {
-          try {
-            console.log(newValues);
-            updatePost(props.id, newValues);
-          }
-          catch (err) { console.log(err) };
-        }
+        
       }}>
         {({ values, handleBlur, handleChange, handleSubmit, errors, touched }) => (
           <form noValidate onSubmit={handleSubmit} className="newpost-form">
@@ -128,16 +103,14 @@ const NewPost = (props) => {
               <input type="text" name="text" placeholder="Text" value={values.text} onChange={handleChange} onBlur={handleBlur} className="newpost-input" />
               <ErrorMessage name="text" component="div" className="newpost-error" />
             </div>
-            <button className="newpost-button" onClick={()=>handleDraft(values)}>Save as draft</button>
-          
+            
             <button type="submit" className="newpost-button">Add Post</button>
           </form>
         )}
       </Formik>
       
-      <Link to='/'><button className="newpost-button">View Posts</button></Link>
-    </div>
+     </div>
   );
 };
 
-export default NewPost;
+export default AddPost;

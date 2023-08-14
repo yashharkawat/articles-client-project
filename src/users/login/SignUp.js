@@ -39,6 +39,8 @@ const SignUp = () => {
       totalPostViews:1,
       revisionHistory:[],
       followers:[],
+      drafts:[],
+      lists:[],
     };
     dispatch(
       actions.changeCurrentUser({...updatedUser,id: data.id})
@@ -60,6 +62,8 @@ const SignUp = () => {
         totalPostViews:1,
         revisionHistory:[],
         followers:[],
+        drafts:[],
+        lists:[],
       };
       const newdata = addUser(user);
       dispatch(actions.changeCurrentUser({ ...user, id: newdata.id }));

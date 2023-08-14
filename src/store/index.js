@@ -15,6 +15,8 @@ const initialState = {
   totalPostViews:1,
   revisionHistory:[],
   followers:[],
+  drafts:[],
+  lists:[],
 };
 
 const userSlice = createSlice({
@@ -37,6 +39,8 @@ const userSlice = createSlice({
         state.totalPostViews = action.payload.totalPostViews;
         state.revisionHistory=action.payload.revisionHistory;
         state.followers=action.payload.followers;
+        state.drafts=action.payload.drafts;
+        state.lists=action.payload.lists;
       }
     },
     changeCurrentUserEmail(state, action) {
@@ -71,6 +75,12 @@ const userSlice = createSlice({
     },
     changeCurrentUserFollowers(state,action){
       state.followers=action.payload;
+    },
+    changeCurrentUserDrafts(state,action){
+      state.drafts=action.payload;
+    },
+    changeCurrentUserLists(state,action){
+      state.lists=action.payload;
     }
   },
 });

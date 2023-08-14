@@ -19,6 +19,9 @@ import SavedPosts from './posts/saved/SavedPosts';
 import StripeContainer from "./Payment/StripeContainer";
 import MyPost from "./users/MyPost";
 import RevisionHistory from "./RevisionHistory/RevisionHistory";
+import Drafts from "./posts/Drafts/Drafts";
+import Lists from "./Lists/Lists";
+import List from './Lists/List'
 const router=createBrowserRouter([
 {
   path:'/',
@@ -74,6 +77,18 @@ const router=createBrowserRouter([
     {
       path:'topics',
       element:<TopicListPage />
+    },
+    {
+      path:'/drafts',
+      element:<Drafts />
+    },
+    {
+      path:'lists',
+      element:<Lists />
+    },
+    {
+      path:'lists/:id',
+      element:<List />
     }
   ]
 },
