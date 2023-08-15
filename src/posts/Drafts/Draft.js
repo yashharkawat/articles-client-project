@@ -3,11 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import readingTime from "../readingTime";
 import SaveForLater from "../saved/SaveForLater";
 import deleteImage from "../../images/delete.png";
-import { useDispatch, useSelector } from "react-redux";
-import { db } from "../../config/firebase";
-import { updateDoc, doc } from "firebase/firestore";
-import { actions } from "../../store/index";
-import { setRevisionHistory } from "../../actions/setRevisionHistory";
 
 const Draft = (props) => {
   const navigate=useNavigate();
@@ -16,7 +11,7 @@ const Draft = (props) => {
     
   }
   return (
-    <div className="draft" id={post.id}>
+    <div className="draft" id={post.id} key={post.id}>
       {post.image !== undefined && (
         <div onClick={postOnClick}>
           <img
@@ -39,7 +34,7 @@ const Draft = (props) => {
             {post.topic !== undefined && (
               <div className="post-topic">{post.topic}</div>
             )}
-            <div className="pointer" onClick={()=>props.deletePost(post)}>
+            <div className="pointer" onClick={()=>props.deletePost(post.id)}>
                 <img src={deleteImage} alt="delete" />
               </div>
           </div>

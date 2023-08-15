@@ -11,10 +11,10 @@ const Drafts = () => {
   const [loading, setLoading] = useState(true);
   const dispatch=useDispatch();
   const draftPosts = useSelector((state) => state.drafts);
-  console.log(draftPosts);
+  //console.log(draftPosts);
   const currUser=useSelector(state=>state);
-  const handleDeletePost=async(article)=>{
-    const filter=draftPosts.filter(post=>article!==post);
+  const handleDeletePost=async(articleId)=>{
+    const filter=draftPosts.filter(post=>articleId!==post.id);
     dispatch(actions.changeCurrentUserDrafts(filter));
     const userRef=doc(db,"users",currUser.id);
     const newUser={...currUser,drafts:filter};

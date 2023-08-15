@@ -69,7 +69,7 @@ const Lists = () => {
       <button className="list-button" onClick={handleAddList}>Create List</button>
 
       <h2>Lists</h2>
-      <ul>
+      <div className="post-list">
         {lists.map((list) => (
           <ListView
             handleDeleteList={handleDeleteList}
@@ -78,7 +78,7 @@ const Lists = () => {
             userList={userList}
           />
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
