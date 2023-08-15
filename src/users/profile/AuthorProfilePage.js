@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { auth, db } from "../../config/firebase";
 import { getDocs, doc } from "firebase/firestore";
 import './AuthorProfilePage.css';
-
+import SimilarAuthor from "../../posts/recommendations/SimilarAuthor";
 const AuthorProfilePage = () => {
   const params = useParams();
   const [author, setAuthor] = useState({});
@@ -12,7 +12,7 @@ const AuthorProfilePage = () => {
     const getData = async () => {
       const userRef = collection(db, "users");
       const data = await getDocs(userRef);
-      const filterUsers = data.docs.map((item) => item.data());
+      const filterUsers = data.docs.map((item) => ({...item.data(),id:item.id}));
       //console.log(filterUsers);
       const user = filterUsers.filter((item) => {
         return (item.name === params.name);
@@ -28,12 +28,17 @@ const AuthorProfilePage = () => {
     }
   }, [params.name]);
   return (
+    <>
+      
     <div className="author-profile">
       <h2>{author.name}</h2>
       <p>Age: {author.age}</p>
       <p>Bio: {author.bio}</p>
       <p>Email: {author.email}</p>
     </div>
+    <h2 style={{textAlign:"center"}}>Posts by a similar author</h2>
+    <SimilarAuthor author={author.name}  />
+    </>
   );
 };
 

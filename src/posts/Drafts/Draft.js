@@ -8,7 +8,9 @@ import { db } from "../../config/firebase";
 import { updateDoc, doc } from "firebase/firestore";
 import { actions } from "../../store/index";
 import { setRevisionHistory } from "../../actions/setRevisionHistory";
+
 const Draft = (props) => {
+  const navigate=useNavigate();
   const [post, setPost] = useState(props.post);
   const postOnClick=()=>{
     

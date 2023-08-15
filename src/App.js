@@ -22,6 +22,7 @@ import RevisionHistory from "./RevisionHistory/RevisionHistory";
 import Drafts from "./posts/Drafts/Drafts";
 import Lists from "./Lists/Lists";
 import List from './Lists/List'
+import AddPost from "./Lists/AddPost";
 const router=createBrowserRouter([
 {
   path:'/',
@@ -89,6 +90,10 @@ const router=createBrowserRouter([
     {
       path:'lists/:id',
       element:<List />
+    },
+    {
+      path:'lists/:id/add',
+      element:<AddPost />
     }
   ]
 },

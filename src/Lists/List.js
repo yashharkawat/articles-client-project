@@ -50,11 +50,11 @@ const List = () => {
     <div>
       <h1>{list.title}</h1>
 
-      <button className="list-button" onClick={() => SetAddPost(true)}>Add posts</button>
+      <Link to='add'><button className="list-button" >Add posts</button></Link>
       
       <div className="post-list">
         {list.posts.map((post) => (
-          <Post key={post.id} post={post} deletePost={deletePostHandler} />
+          <Post key={post.id} post={post} deletePost={deletePostHandler} draft={true}/>
         ))}
       </div>
       {addPost && <AddPost listId={list.id} add={addHandler} />}

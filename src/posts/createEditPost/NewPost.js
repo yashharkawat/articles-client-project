@@ -76,6 +76,7 @@ const NewPost = (props) => {
     dispatch(actions.changeCurrentUserDrafts(newDrafts));
     const userRef=doc(db,"users",currUser.id);
     const newUser={...currUser,drafts:newDrafts};
+    console.log(newUser);
     await updateDoc(userRef,newUser);
   }
   if (loading) return <div>Loading</div>;
@@ -128,8 +129,8 @@ const NewPost = (props) => {
               <input type="text" name="text" placeholder="Text" value={values.text} onChange={handleChange} onBlur={handleBlur} className="newpost-input" />
               <ErrorMessage name="text" component="div" className="newpost-error" />
             </div>
-            <button className="newpost-button" onClick={()=>handleDraft(values)}>Save as draft</button>
-          
+            {props.id===undefined&&<button className="newpost-button" onClick={()=>handleDraft(values)}>Save as draft</button>
+          }
             <button type="submit" className="newpost-button">Add Post</button>
           </form>
         )}

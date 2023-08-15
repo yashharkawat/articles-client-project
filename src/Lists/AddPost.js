@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { collection, addDoc, updateDoc, doc } from 'firebase/firestore';
 import { db } from '../config/firebase'
 import { useSelector,useDispatch } from 'react-redux';
@@ -21,6 +21,9 @@ async function checkUrlExists(url) {
 }
 const AddPost = (props) => {
   //const [loading,setLoading]=useState(true);
+  
+  const params=useParams();
+  //console.log(params.id);
   const username = useSelector(state => state.name);
   const [initialValues, setInitialValues] = useState({title:'',text:'',image:'',topic:''});
   
@@ -38,19 +41,19 @@ const AddPost = (props) => {
   });
 
   const addPost = async (values) => {
-    console.log(values);
+    //console.log(values);
     const date = new Date();
     const lists=currUser.lists;
     const newLists=lists.map(ll=>{
 
-        if(ll.id==props.listId){
+        if(ll.id==params.id){
             const id=new Date();
             const newPosts=[ ...ll.posts, {...values,id:id,created_at: date, author: username, view: 0 ,liked_by:[],comments:[]}]
             return {...ll,posts:newPosts};
         }
         return ll;
     });
-    console.log("in addpost",newLists);
+    //console.log("in addpost",newLists);
     dispatch(actions.changeCurrentUserLists(newLists));
 
     const userRef=doc(db,"users",currUser.id);
@@ -80,7 +83,6 @@ const AddPost = (props) => {
         try {
             addPost(newValues);
             resetForm();
-            props.add(false);
           }
           catch (err) { console.log(err) };
         

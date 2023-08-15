@@ -5,8 +5,10 @@ import { db } from "../../config/firebase";
 
 const SimilarAuthor = (props) => {
   const [posts, setPosts] = useState([]);
+  const [loading,setLoading]=useState(false);
   useEffect(() => {
     const getArticles = async () => {
+      setLoading(true);
       const articlesCollection = collection(db, "articles");
       const data = await getDocs(articlesCollection);
       const filteredData = data.docs.map((doc) => ({
@@ -27,18 +29,18 @@ const SimilarAuthor = (props) => {
         } else return item;
       });
       setPosts(newData);
+      setLoading(false);
     };
     try {
       getArticles();
     } catch (err) {
       console.log(err);
     }
-  }, [props.id]);
-
+  }, [props.id,props.author]);
+  if(loading) return <div>Loading</div>
   const deletePostHandler = () => {};
   return (
     <>
-      <h2 style={{textAlign:"center"}}>Posts by a similar author</h2>
       <div className="post-list">
         {posts.map((post, index) => (
           <Post key={index} post={post} deletePost={deletePostHandler} />

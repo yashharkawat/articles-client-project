@@ -293,8 +293,13 @@ const PostDetails = () => {
           <br />
         </div>
       </div>
-      {similar && <SimilarAuthor author={post.author} id={post.id} />}
-      {!similar && <RecommendedPosts topic={post.topic} id={post.id}/>}
+      {similar && (
+        <>
+          <h2 style={{ textAlign: "center" }}>Posts by a similar author</h2>
+          <SimilarAuthor author={post.author} id={post.id} />
+        </>
+      )}
+      {!similar && <RecommendedPosts topic={post.topic} id={post.id} />}
     </>
   );
 };
