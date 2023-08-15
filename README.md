@@ -8,3 +8,5 @@ If you want to view more than one post than to buy the post ,server is required 
 
 Demo video here -->
 https://drive.google.com/drive/folders/1jQJqQBsLcPHXorEzODF6YOGMVrwiKVrJ?usp=sharing
+
+What I learnt --> In the code ,for current user I am using redux , But for all other things I am using react , When I was writing the code I figured out it is very hard to manage all the states with react only , I should have used redux overall than it would have been much easier
