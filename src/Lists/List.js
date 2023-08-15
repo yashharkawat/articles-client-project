@@ -54,7 +54,7 @@ const List = () => {
       
       <div className="post-list">
         {list.posts.map((post) => (
-          <Post key={post.id} post={post} deletePost={deletePostHandler} draft={true}/>
+          <Post key={post.id} post={post} deletePost={deletePostHandler} draft={true} navigate={post.id}/>
         ))}
       </div>
       {addPost && <AddPost listId={list.id} add={addHandler} />}

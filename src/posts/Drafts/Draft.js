@@ -8,7 +8,8 @@ const Draft = (props) => {
   const navigate=useNavigate();
   const [post, setPost] = useState(props.post);
   const postOnClick=()=>{
-    
+    console.log(post.id);
+    navigate(`${post.id}`);
   }
   return (
     <div className="draft" id={post.id} key={post.id}>

@@ -42,12 +42,12 @@ const AddPost = (props) => {
 
   const addPost = async (values) => {
     //console.log(values);
-    const date = new Date();
+    const date = Date.now();
     const lists=currUser.lists;
     const newLists=lists.map(ll=>{
 
         if(ll.id==params.id){
-            const id=new Date();
+            const id=Date.now();
             const newPosts=[ ...ll.posts, {...values,id:id,created_at: date, author: username, view: 0 ,liked_by:[],comments:[]}]
             return {...ll,posts:newPosts};
         }

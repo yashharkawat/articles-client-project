@@ -23,6 +23,8 @@ import Drafts from "./posts/Drafts/Drafts";
 import Lists from "./Lists/Lists";
 import List from './Lists/List'
 import AddPost from "./Lists/AddPost";
+import DraftDesription from "./posts/Drafts/DraftDescription";
+import ListDescription from "./Lists/ListDescription";
 const router=createBrowserRouter([
 {
   path:'/',
@@ -94,6 +96,14 @@ const router=createBrowserRouter([
     {
       path:'lists/:id/add',
       element:<AddPost />
+    },
+    {
+      path:'drafts/:id',
+      element:<DraftDesription />
+    },
+    {
+      path:'lists/:id/:postId',
+      element:<ListDescription />
     }
   ]
 },
