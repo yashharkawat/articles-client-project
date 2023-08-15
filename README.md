@@ -5,3 +5,6 @@
 I have also deployed the website, but i cannot deploy the server , so you can view the website here -->
 https://blogs-project-fdc4c.web.app/
 If you want to view more than one post than to buy the post ,server is required ,I was unable to deploy it.
+
+Demo video here -->
+https://drive.google.com/drive/folders/1jQJqQBsLcPHXorEzODF6YOGMVrwiKVrJ?usp=sharing
