@@ -6,7 +6,7 @@ const RevisionHistory = () => {
   //console.log(history);
   return (
     <div className="revision-history-container">
-      <h2 className="flex center">Revision History</h2>
+      <h2 className="flex center">Activity Log</h2>
       <ul className="revision-list">
         {history.map((item, index) => (
           <li key={index} className="revision-item">

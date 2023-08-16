@@ -24,6 +24,7 @@ const MyPost = () => {
         return { ...item, comments: [] };
       } else return item;
     });
+    console.log("my posts",newData);
     setPosts(newData);
     //console.log(newData);
   };

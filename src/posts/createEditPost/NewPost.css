@@ -53,4 +53,12 @@
       max-width: 400px;
     }
   }
-  
+  .popup{
+    background-color: rgb(32, 32, 32);
+  }
+  .history{
+    border: 1px solid;
+    padding: 20px;
+    margin-top:10px;
+    margin-bottom: 10px;
+  }

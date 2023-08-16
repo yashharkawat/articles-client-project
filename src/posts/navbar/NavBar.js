@@ -37,7 +37,7 @@ const NavBar = (props) => {
         My Posts
         </Link>
         <Link to='/revision-history' className="pages">
-        History
+        Activity Log
         </Link>
         <Link to='/pay' className="pages">
         Buy Posts
