@@ -1,13 +1,11 @@
 import PostList from "../post/PostList";
 import NavBar from "../navbar/NavBar";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./Display.css";
-import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import TopicListPage from "../Topics/TopicList";
 import BestPosts from "../recommendations/BestPosts";
-import { collection, getDocs, updateDoc,doc } from "firebase/firestore";
-import {db} from '../../config/firebase'
+
 const Display = () => {
   // const user=useSelector(state=>state);
   // console.log("user",user);
